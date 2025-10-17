@@ -60,7 +60,8 @@ app.post("/analyze", async (req, res) => {
             {
                 // 3. Groq uses a "messages" array format
                 messages: [{ role: "user", content: prompt }],
-                model: "llama3-8b-8192", // Using a fast Llama 3 model
+                model: "llama-3.1-8b-instant", // Using a fast Llama 3 model
+                response_format: { type: "json_object" },
             },
             { headers: { Authorization: `Bearer ${apiKey}` } }
         );
@@ -71,11 +72,7 @@ app.post("/analyze", async (req, res) => {
             throw new Error("Received an empty analysis from the AI.");
         }
 
-        const startIndex = analysisText.indexOf('{');
-        const endIndex = analysisText.lastIndexOf('}');
-        const jsonString = analysisText.substring(startIndex, endIndex + 1);
-
-        res.json(JSON.parse(jsonString));
+        res.json(JSON.parse(analysisText));
 
     } catch (error) {
         // This will now give us detailed errors from the Groq API if any occur
