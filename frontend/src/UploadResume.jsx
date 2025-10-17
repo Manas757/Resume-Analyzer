@@ -32,13 +32,13 @@ export default function UploadResume() {
     try {
       const formData = new FormData();
       formData.append("resume", file);
-      const uploadRes = await fetch("http://localhost:5000/upload", {
+      const uploadRes = await fetch("https://ai-resume-analyzer-vch3.onrender.com/upload", {
         method: "POST",
         body: formData,
       });
       if (!uploadRes.ok) throw new Error("Failed to parse the resume PDF.");
       const { text: resumeText } = await uploadRes.json();
-      const analyseRes = await fetch("http://localhost:5000/analyze", {
+      const analyseRes = await fetch("https://ai-resume-analyzer-vch3.onrender.com/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resumeText, JobDescription: jobDescription }),
