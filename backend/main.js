@@ -1,4 +1,6 @@
-require("dotenv").config()
+if (process.env.NODE_ENV !== 'production') {
+    require("dotenv").config();
+}
 const axios = require("axios")
 const express = require("express");
 const fs = require("fs");
@@ -53,6 +55,10 @@ app.post("/analyze", async (req, res) => {
 
         // 2. Switched to use the new API Key
         const apiKey = process.env.GROQ_API_KEY;
+        if (!apiKey) {
+            console.error("GROQ_API_KEY is not set!");
+            return res.status(500).json({ error: "Server configuration error: Missing API Key." });
+        }
         console.log("Server is using Groq API Key.");
 
         const response = await axios.post(
