@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add this to force a dark background for your project */
+body {
+  margin: 0;
+  background-color: #0a0a0a;
+  color: white;
+}
