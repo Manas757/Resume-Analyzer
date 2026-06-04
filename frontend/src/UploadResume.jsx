@@ -18,10 +18,10 @@ export default function UploadResume() {
       const formData = new FormData();
       formData.append("resume", file);
       
-      const uploadRes = await fetch("http://localhost:5000/upload", { method: "POST", body: formData });
+      const uploadRes = await fetch("https://ai-resume-analyzer-vch3.onrender.com", { method: "POST", body: formData });
       const { text: resumeText } = await uploadRes.json();
 
-      const analyseRes = await fetch("http://localhost:5000/analyze", {
+      const analyseRes = await fetch("https://ai-resume-analyzer-vch3.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resumeText, JobDescription: jobDescription }),
